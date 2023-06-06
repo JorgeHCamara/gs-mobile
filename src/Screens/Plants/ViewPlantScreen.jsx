@@ -1,28 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ViewPlantScreen = () => {
   const [plantas, setPlantas] = useState([]);
 
   useEffect(() => {
-    const fetchPlantas = async () => {
-      try {
-        const response = await axios.get(`http://192.168.0.104:8080/planta`);
-        setPlantas(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  
     fetchPlantas();
   }, []);
+
+  const fetchPlantas = async () => {
+    try {
+      const response = await axios.get(`http://192.168.0.104:8080/planta`);
+      setPlantas(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deletePlant = async (id) => {
+    try {
+      await axios.delete(`http://192.168.0.104:8080/planta/${id}`);
+      fetchPlantas();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <ScrollView style={styles.container}>
       {plantas.map((planta, index) => (
         <View style={styles.card} key={index}>
+          <View style={styles.headerContainer}>
           <Text style={styles.header}>{planta.tipo}</Text>
+          <TouchableOpacity onPress={() => deletePlant(planta.id)}>
+            <Icon name="trash" size={24} color="red" />
+          </TouchableOpacity>
+          </View>
           <Text style={styles.subheader}>Nome: {planta.nomeFruto}</Text>
           <Text style={styles.subheader}>Fenótipo: {planta.fenotipo}</Text>
           <Text style={styles.subheader}>Porção: {planta.tabelaNutricional.porcao}</Text>
@@ -68,6 +83,11 @@ const styles = StyleSheet.create({
     subheader: {
       fontSize: 18,
       color: '#666',
+    },
+    headerContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
     },
   });
 

@@ -58,7 +58,9 @@ const LoginScreen = ({ navigation }) => {
         <>
           <TextInput placeholder="Email" style={styles.input} onChangeText={setEmail} />
           <TextInput placeholder="Senha" secureTextEntry style={styles.input} onChangeText={setSenha} />
-          <Button title="Entrar" onPress={login} />
+          <TouchableOpacity style={styles.button} onPress={login}>
+            <Text style={{ color: '#FFFFFF' }}>Entrar</Text>
+          </TouchableOpacity>
         </>
       )}
       <TouchableOpacity onPress={() => {/* Aqui você pode colocar a lógica de recuperação de senha */}}>
@@ -76,23 +78,37 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: '#F5F5F5', // changed background color
   },
   title: {
-    fontSize: 20,
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 30,
+    color: '#2F4F4F', // changed color
+    textAlign: 'center', // added text align
   },
   input: {
-    height: 40,
-    borderColor: 'gray',
+    height: 50,
+    borderColor: '#D3D3D3', // changed border color
     borderWidth: 1,
-    marginBottom: 10,
-    paddingLeft: 10,
+    marginBottom: 15,
+    paddingLeft: 15,
+    borderRadius: 5, // added border radius
   },
   linkText: {
     textAlign: 'center',
-    color: 'blue',
+    color: '#228B22', // changed color
     marginTop: 15,
+    textDecorationLine: 'underline', // added underline
+  },
+  button: {
+    backgroundColor: '#008080', // added button color
+    color: '#FFFFFF', // added text color
+    padding: 10, // added padding
+    borderRadius: 5, // added border radius
+    textAlign: 'center', // added text align
+    marginBottom: 15, // added margin bottom
+    fontSize: 16, // added font size
   },
 });
 

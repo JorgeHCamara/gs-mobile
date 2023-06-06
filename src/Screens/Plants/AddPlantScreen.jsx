@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ScrollView, Alert } from 'react-native';
 import axios from 'axios';
+import RNPickerSelect from 'react-native-picker-select';
 
 const AddPlantScreen = () => {
   const [tipo, setTipo] = useState('');
@@ -35,20 +36,31 @@ const AddPlantScreen = () => {
 
     try {
       const response = await axios.post(url, data);
+      Alert.alert("Planta adicionada com sucesso.");
+      navigation.navigate('PlantScreen');
     } catch (error) {
-      console.log(error.response.data);
+      Alert.alert("Não foi possível adicionar essa planta. Revise os dados.");
     }
   };
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Cadastrar uma nova planta</Text>
-      <TextInput
-        placeholder="Tipo"
-        style={styles.input}
-        value={tipo}
-        onChangeText={(text) => setTipo(text)}
+      
+      <RNPickerSelect
+        onValueChange={(value) => setTipo(value)}
+        items={[
+            { label: 'Fruta', value: 'FRUTA' },
+            { label: 'Legume', value: 'LEGUME' },
+            { label: 'Verdura', value: 'VERDURA' },
+        ]}
+        placeholder={{ label: "Tipo", value: null }}
+        style={{
+          inputIOS: styles.input, // iOS
+          inputAndroid: styles.input, // Android
+        }}
       />
+
       <TextInput
         placeholder="Nome do fruto"
         style={styles.input}
@@ -111,7 +123,7 @@ const AddPlantScreen = () => {
         keyboardType="numeric"
       />
       <Button style={styles.plantButton} title="Adicionar planta" onPress={addPlant} />
-      <View style={{ height: 50 }} />
+      <View style={{ height: 200 }} />
     </ScrollView>
   );
 };

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, Button, Alert, ScrollView } from 'react-native';
 import axios from 'axios';
 import RNPickerSelect from 'react-native-picker-select';
 import moment from 'moment';
+import { TextInputMask } from 'react-native-masked-text';
 
 const RegisterScreen = () => {
   const [personType, setPersonType] = useState('');
@@ -21,6 +22,20 @@ const RegisterScreen = () => {
   const [dtNascimento, setDtNascimento] = useState('');
 
   const dtContratacaoServico = new Date().toISOString().split('T')[0];
+
+  const [emailError, setEmailError] = useState('');
+  const [emailTouched, setEmailTouched] = useState(false);
+
+  useEffect(() => {
+    // regex for validating an email address
+    const emailRegex = /\S+@\S+\.\S+/;
+    // check that all inputs are filled out and valid
+    const validEmail = emailRegex.test(email);
+
+    if (emailTouched) { // only set the error message if the email input has been selected
+      setEmailError(validEmail ? '' : 'Informe um e-mail válido.');
+    }
+  }, [email, telefone, dtNascimento]);
 
   const register = async () => {
     let url = `http://192.168.0.104:8080/${personType}`; // URL dinâmica baseada no tipo de pessoa
@@ -62,7 +77,7 @@ const RegisterScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>Tela de Cadastro</Text>
       <RNPickerSelect
         placeholder={{
@@ -96,80 +111,70 @@ const RegisterScreen = () => {
             value={endereco}
             onChangeText={(text) => setEndereco(text)}
           />
-          <TextInput
+          <TextInputMask
+            type={'cel-phone'}
+            options={{
+              maskType: 'BRL',
+              withDDD: true,
+              dddMask: '(99) '
+            }}
             placeholder="Telefone"
             style={styles.input}
             value={telefone}
             onChangeText={(text) => setTelefone(text)}
+            maxLength={15}
           />
+          {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
           <TextInput
             placeholder="Email"
             style={styles.input}
             value={email}
             onChangeText={(text) => setEmail(text)}
+            onFocus={() => setEmailTouched(true)}
           />
-          <TextInput
+          <TextInputMask
+            type={'cpf'}
             placeholder="CPF"
             style={styles.input}
             value={cpf}
             onChangeText={(text) => setCpf(text)}
           />
-          <TextInput
+          <TextInputMask
+            type={'datetime'}
+            options={{
+              format: 'DD/MM/YYYY'
+            }}
             placeholder="Data de Nascimento (DD/MM/YYYY)"
             style={styles.input}
             value={dtNascimento}
             onChangeText={(text) => setDtNascimento(text)}
           />
-          <TextInput
-            placeholder="Sexo (MASCULINO | FEMININO)"
-            style={styles.input}
-            value={sexo}
-            onChangeText={(text) => setSexo(text.toUpperCase())}
-          />
-          {/* <RNPickerSelect
-            placeholder={{
-              label: 'Sexo',
-              value: null,
-            }}
+          <RNPickerSelect
             onValueChange={(value) => setSexo(value)}
             items={[
-              { label: 'Masculino', value: 'MASCULINO' },
-              { label: 'Feminino', value: 'FEMININO' },
+                { label: 'Masculino', value: 'MASCULINO' },
+                { label: 'Feminino', value: 'FEMININO' },
             ]}
+            placeholder={{ label: "Sexo", value: null }}
             style={{
-          ...pickerSelectStyles,
-          iconContainer: {
-            top: 10,
-            right: 12,
-          },
-        }}
-          /> */}
-          {/* <RNPickerSelect
-            placeholder={{
-              label: 'Estado Civil',
-              value: null,
+              inputIOS: styles.input,
+              inputAndroid: styles.input,
             }}
+          />
+          <RNPickerSelect
             onValueChange={(value) => setEstadoCivil(value)}
             items={[
-              { label: 'Solteiro', value: 'SOLTEIRO' },
-              { label: 'Divorciado', value: 'DIVORCIADO' },
-              { label: 'União Estável', value: 'UNIAOESTAVEL' },
-              { label: 'Viúvo', value: 'VIUVO' },
-              { label: 'Casado', value: 'CASADO' },
+                { label: 'Solteiro', value: 'SOLTEIRO' },
+                { label: 'Casado', value: 'CASADO' },
+                { label: 'Divorciado', value: 'DIVORCIADO' },
+                { label: 'Viuvo', value: 'VIUVO' },
+                { label: 'União Estável', value: 'UNIAOESTAVEL' },
             ]}
+            placeholder={{ label: "Estado Civil", value: null }}
             style={{
-          ...pickerSelectStyles,
-          iconContainer: {
-            top: 10,
-            right: 12,
-          },
-        }}
-          /> */}
-          <TextInput
-            placeholder="Estado Civil (SOLTEIRO | CASADO | DIVORCIADO | VIUVO |"
-            style={styles.input}
-            value={estadoCivil}
-            onChangeText={(text) => setEstadoCivil(text.toUpperCase())}
+              inputIOS: styles.input,
+              inputAndroid: styles.input,
+            }}
           />
           <TextInput
             placeholder="Filhos"
@@ -215,19 +220,29 @@ const RegisterScreen = () => {
             value={endereco}
             onChangeText={(text) => setEndereco(text)}
           />
-          <TextInput
+          <TextInputMask
+            type={'cel-phone'}
+            options={{
+              maskType: 'BRL',
+              withDDD: true,
+              dddMask: '(99) '
+            }}
             placeholder="Telefone"
             style={styles.input}
             value={telefone}
             onChangeText={(text) => setTelefone(text)}
+            maxLength={15}
           />
+          {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
           <TextInput
             placeholder="Email"
             style={styles.input}
             value={email}
             onChangeText={(text) => setEmail(text)}
+            onFocus={() => setEmailTouched(true)}
           />
-          <TextInput
+          <TextInputMask
+            type={'cnpj'}
             placeholder="CNPJ"
             style={styles.input}
             value={cnpj}
@@ -243,15 +258,15 @@ const RegisterScreen = () => {
         </>
       )}
       <Button title="Cadastrar" onPress={register} />
-    </View>
+      <View style={{ height: 250 }} />
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 20,
+    padding: 15,
   },
   title: {
     fontSize: 24,
@@ -265,6 +280,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingLeft: 10,
     fontSize: 16
+  },
+  error: {
+    color: 'red',
   },
 });
 
