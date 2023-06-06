@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({ navigation }) => {
 
@@ -20,6 +21,14 @@ const LoginScreen = ({ navigation }) => {
         email: email,
         senha: senha,
       });
+
+      const userWithPersonType = {
+        ...response.data,
+        personType: personType,
+      }
+
+      await AsyncStorage.setItem('user', JSON.stringify(userWithPersonType));
+      await AsyncStorage.setItem('userId', response.data.id.toString());
 
       // se o login for bem-sucedido, navegue para a tela inicial
       navigation.reset({
