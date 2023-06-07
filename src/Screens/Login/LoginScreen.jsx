@@ -47,68 +47,103 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Título do Projeto</Text>
-      {!showInputs && (
-        <>
-          <Button title="Pessoa Física" onPress={() => choosePersonType('pf')} />
-          <Button title="Pessoa Jurídica" onPress={() => choosePersonType('pj')} />
-        </>
-      )}
-      {showInputs && (
-        <>
-          <TextInput placeholder="Email" style={styles.input} onChangeText={setEmail} />
-          <TextInput placeholder="Senha" secureTextEntry style={styles.input} onChangeText={setSenha} />
-          <TouchableOpacity style={styles.button} onPress={login}>
-            <Text style={{ color: '#FFFFFF' }}>Entrar</Text>
-          </TouchableOpacity>
-        </>
-      )}
-      <TouchableOpacity onPress={() => {/* Aqui você pode colocar a lógica de recuperação de senha */}}>
-        <Text style={styles.linkText}>Esqueceu sua senha?</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-        <Text style={styles.linkText}>Criar uma conta</Text>
-      </TouchableOpacity>
-    </View>
+    <Text style={styles.title}>iAqua</Text>
+    {!showInputs && (
+      <>
+        <TouchableOpacity style={styles.button} onPress={() => choosePersonType('pf')}>
+          <Text style={styles.buttonText}>Pessoa Física</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => choosePersonType('pj')}>
+          <Text style={styles.buttonText}>Pessoa Jurídica</Text>
+        </TouchableOpacity>
+      </>
+    )}
+    {showInputs && (
+      <>
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>Email</Text>
+          <TextInput
+            placeholder="Digite seu Email"
+            style={styles.input}
+            onChangeText={setEmail}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>Senha</Text>
+          <TextInput
+            placeholder="Digite sua Senha"
+            secureTextEntry
+            style={styles.input}
+            onChangeText={setSenha}
+          />
+        </View>
+        <TouchableOpacity style={styles.button} onPress={login}>
+          <Text style={styles.buttonText}>Entrar</Text>
+        </TouchableOpacity>
+      </>
+    )}
+    <TouchableOpacity onPress={() => {/* logic */}}>
+      <Text style={styles.linkText}>Esqueceu sua senha?</Text>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+      <Text style={styles.linkText}>Criar uma conta</Text>
+    </TouchableOpacity>
+  </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
-    backgroundColor: '#F5F5F5', // changed background color
+    backgroundColor: '#eef5db',
+    paddingHorizontal: 30,
   },
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 30,
-    color: '#2F4F4F', // changed color
-    textAlign: 'center', // added text align
+    fontSize: 40,
+    fontWeight: '700',
+    color: '#333',
+    marginBottom: 60,
+    textAlign: 'center',
+  },
+  inputContainer: {
+    width: '100%',
+    marginBottom: 15,
+  },
+  inputLabel: {
+    fontSize: 18,
+    marginBottom: 5,
+    color: '#333',
+    fontWeight: '600',
   },
   input: {
-    height: 50,
-    borderColor: '#D3D3D3', // changed border color
+    height: 45,
+    borderColor: '#888',
     borderWidth: 1,
-    marginBottom: 15,
-    paddingLeft: 15,
-    borderRadius: 5, // added border radius
-  },
-  linkText: {
-    textAlign: 'center',
-    color: '#228B22', // changed color
-    marginTop: 15,
-    textDecorationLine: 'underline', // added underline
+    borderRadius: 5,
+    paddingHorizontal: 15,
+    backgroundColor: '#fff',
+    fontSize: 16,
   },
   button: {
-    backgroundColor: '#008080', // added button color
-    color: '#FFFFFF', // added text color
-    padding: 10, // added padding
-    borderRadius: 5, // added border radius
-    textAlign: 'center', // added text align
-    marginBottom: 15, // added margin bottom
-    fontSize: 16, // added font size
+    width: '100%',
+    backgroundColor: '#228B22',
+    borderRadius: 5,
+    padding: 15,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  linkText: {
+    marginTop: 20,
+    fontSize: 16,
+    color: '#333',
+    textDecorationLine: 'underline',
   },
 });
 

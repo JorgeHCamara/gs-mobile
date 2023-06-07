@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ScrollView, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ScrollView, Alert, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import RNPickerSelect from 'react-native-picker-select';
 
@@ -36,10 +36,10 @@ const AddPlantScreen = () => {
 
     try {
       const response = await axios.post(url, data);
-      Alert.alert("Planta adicionada com sucesso.");
-      navigation.navigate('PlantScreen');
+      console.log("Cadastro realizado com sucesso.");
+      navigation.navigate('Plantas');
     } catch (error) {
-      Alert.alert("Não foi possível adicionar essa planta. Revise os dados.");
+      console.log("Não foi possível adicionar essa planta. Revise os dados.");
     }
   };
 
@@ -122,7 +122,9 @@ const AddPlantScreen = () => {
         onChangeText={(text) => setKcal(text)}
         keyboardType="numeric"
       />
-      <Button style={styles.plantButton} title="Adicionar planta" onPress={addPlant} />
+      <TouchableOpacity style={styles.button} onPress={addPlant} >
+        <Text style={styles.buttonText}>Adicionar planta</Text>
+      </TouchableOpacity>
       <View style={{ height: 200 }} />
     </ScrollView>
   );
@@ -131,23 +133,38 @@ const AddPlantScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15,
+    padding: 20,
+    backgroundColor: '#eef5db',
   },
   title: {
-    fontSize: 22,
-    marginBottom: 15,
+    fontSize: 26,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 30,
+    color: '#377a3f',
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 5,
+    borderColor: '#377a3f',
+    borderRadius: 25,
     height: 50,
-    marginBottom: 15,
-    paddingLeft: 10,
+    marginBottom: 20,
+    paddingLeft: 15,
+    fontSize: 18,
   },
-  plantButton: {
-    marginBottom: 50
-  }
+  button: {
+    backgroundColor: '#377a3f',
+    borderRadius: 25,
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    marginBottom: 50,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
 });
 
 export default AddPlantScreen;

@@ -85,7 +85,7 @@ const AccountScreen = ({ navigation }) => {
             <Text style={styles.cardText}>Email: {userData.email}</Text>
             <Text style={styles.cardText}>Endereço: {userData.endereco}</Text>
             <Text style={styles.cardText}>Telefone: {userData.telefone}</Text>
-            <Button style={styles.buttonEditar} title="Editar Dados" onPress={() => setEditing(true)} color="#0000ff" />
+            <Button title="Editar Dados" onPress={() => setEditing(true)} color="#377a3f" />
           </>
         )}
       </Card>
@@ -100,22 +100,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     padding: 20,
-    backgroundColor: '#f4f6f9',
+    backgroundColor: '#eef5db',
   },
   loading: {
     marginTop: '50%',
   },
   card: {
     borderRadius: 10,
+    marginTop: 80
   },
   cardTitle: {
     fontSize: 24,
     color: '#2f4f4f',
   },
   cardText: {
-    marginBottom: 10,
+    marginBottom: 20,
     fontSize: 18,
-    color: '#696969',
+    color: '#2f4f4f',
   },
   input: {
     height: 40,
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 20,
     paddingLeft: 10,
-  }
+  },
 });
 
 export default AccountScreen;

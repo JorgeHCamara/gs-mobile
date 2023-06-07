@@ -48,6 +48,7 @@ const ViewPlantScreen = () => {
           <Text style={styles.subheader}>Gordura Poliinsaturada: {planta.tabelaNutricional.gordura.saturada}</Text>
         </View>
       ))}
+    <View style={{ height: 50 }} />
     </ScrollView>
   );
 };
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       padding: 15,
-      backgroundColor: '#f8f8f8',
+      backgroundColor: '#eef5db',
     },
     card: {
       backgroundColor: '#fff',

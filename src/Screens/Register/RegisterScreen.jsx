@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import RNPickerSelect from 'react-native-picker-select';
 import moment from 'moment';
@@ -77,8 +77,8 @@ const RegisterScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Tela de Cadastro</Text>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>Crie uma conta</Text>
       <RNPickerSelect
         placeholder={{
           label: 'Selecione o tipo de cadastro',
@@ -257,7 +257,9 @@ const RegisterScreen = () => {
           />
         </>
       )}
-      <Button title="Cadastrar" onPress={register} />
+      <TouchableOpacity style={styles.button} onPress={register}>
+        <Text style={styles.buttonText}>Cadastrar</Text>
+      </TouchableOpacity>
       <View style={{ height: 250 }} />
     </ScrollView>
   );
@@ -265,48 +267,72 @@ const RegisterScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 15,
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    paddingHorizontal: 30,
+    backgroundColor: '#eef5db',
   },
   title: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
-    marginBottom: 20,
+    color: '#333',
+    marginBottom: 30,
+    textAlign: 'center',
+    marginTop: 30
   },
   input: {
-    height: 40,
-    borderColor: 'gray',
+    height: 50,
+    borderColor: '#ccc',
     borderWidth: 1,
-    marginBottom: 10,
-    paddingLeft: 10,
-    fontSize: 16
+    borderRadius: 5,
+    paddingHorizontal: 15,
+    backgroundColor: '#fff',
+    fontSize: 16,
+    marginBottom: 20,
   },
   error: {
     color: 'red',
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: '#333',
+    borderRadius: 5,
+    padding: 15,
+    alignItems: 'center',
+    marginTop: 20
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
     fontSize: 16,
-    paddingVertical: 10,
-    paddingHorizontal: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: '#ccc',
+    borderRadius: 5,
     color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
-    marginBottom: 10,
-    fontWeight: '500'
+    paddingRight: 30,
+    marginBottom: 20,
+    backgroundColor: '#fff',
   },
   inputAndroid: {
     fontSize: 16,
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderWidth: 0.5,
-    borderColor: 'purple',
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
     color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
-    marginBottom: 10,
+    paddingRight: 30,
+    marginBottom: 20,
+    backgroundColor: '#fff',
   },
 });
 

@@ -11,15 +11,13 @@ import AccountScreen from '../Conta/AccountScreen';
 import HomePage from './HomePage';
 
 // Outras telas do seu aplicativo
-const Screen1 = () => <View><Text>Olá</Text></View>
-const Screen2 = () => <View><Text>Screen2</Text></View>
 
 const PlantStackNavigator = createStackNavigator();
 
 const PlantStack = () => {
   return (
     <PlantStackNavigator.Navigator initialRouteName="Plantas">
-      <PlantStackNavigator.Screen name="Plantas" component={PlantScreen} />
+      <PlantStackNavigator.Screen name="Plantas" component={PlantScreen} options={{ headerShown: false }} />
       <PlantStackNavigator.Screen name="AddPlant" component={AddPlantScreen} />
       <PlantStackNavigator.Screen name="ViewPlant" component={ViewPlantScreen} />
     </PlantStackNavigator.Navigator>
@@ -34,8 +32,9 @@ const HomeScreen = () => {
     <Tab.Navigator>
       <Tab.Screen 
         name="Home" 
-        component={Screen1}
+        component={HomePage}
         options={{ 
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Icon name="home" color={color} size={size} />
           ),
@@ -45,6 +44,7 @@ const HomeScreen = () => {
         name="Plantas" 
         component={PlantStack} 
         options={{ 
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Icon name="md-nutrition-outline" color={color} size={size} />
           ),
@@ -54,6 +54,7 @@ const HomeScreen = () => {
         name="Conta" 
         component={AccountScreen} 
         options={{ 
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Icon name="md-person-outline" color={color} size={size} />
           ),
@@ -63,6 +64,7 @@ const HomeScreen = () => {
         name="Info" 
         component={InfoScreen} 
         options={{ 
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Icon name="information-circle" color={color} size={size} />
           ),
@@ -77,6 +79,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#eef5db'
   },
 });
 
